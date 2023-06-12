@@ -9,9 +9,9 @@ export interface UserInput {
 } 
 
 export interface UserDocument extends UserInput, mongoose.Document {
-  createdAt: Date,
-  updatedAt: Date,
-  comparePassword(candidatePassword: string): Promise<Boolean>
+  createdAt: Date;
+  updatedAt: Date;
+  comparePassword(candidatePassword: string): Promise<Boolean>;
 }
 
 const userSchema = new mongoose.Schema({
@@ -41,6 +41,6 @@ userSchema.methods.comparePassword = async function(candidatePassword: string) {
   return bcrypt.compare(candidatePassword, user.password).catch((e)=> false)
 }
 
-const UserModel = mongoose.model("User", userSchema)
+const UserModel = mongoose.model<UserDocument>("User", userSchema)
 
 export default UserModel
